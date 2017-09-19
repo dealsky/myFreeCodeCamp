@@ -1,0 +1,52 @@
+.sentBox {
+    width: 450px;
+    height: auto;
+    margin: 10% auto auto auto;
+    padding: 40px 50px;
+    border-radius: 3px;
+    background-color: white;
+}
+
+body {
+    background-color: #333;
+}
+
+.buttons {
+    margin: 45px 0 -16px 0;
+}
+
+.buttons a:hover {
+    opacity: 0.88;
+}
+.buttons a:link {
+    text-decoration: none;
+}
+.rollBtn {
+    height: 40px;
+    background-color: #333;
+    border-radius: 3px;
+    border: none;
+    padding: 8px;
+    color: white;
+    opacity: 1;
+    cursor:pointer;
+}
+.twBtn {
+    height: 40px;
+    background-color: #333;
+    border-radius: 3px;
+    border: none;
+    padding: 8px;
+    color: white;
+    opacity: 1;
+    cursor:pointer;
+    margin-left: 12px;
+}
+#text {
+    color: #333;
+    font-size: 24px;
+}
+#textE {
+    color: #333;
+    font-size: 24px;
+}
