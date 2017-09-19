@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>天气指南~~</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <link type="text/css" rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css"/>
+        <script src="javascript.js"></script>
+        <script src="jquery-3.2.1.min.js"></script>
+    </head>
+    <body onload="getWeather()">
+        <div class="mainBody">
+            <div class="top">
+                <a href="https://www.showapi.com/api/lookPoint/9" target="_blank"><img src="logo_white.png"/></a><span class="bigFont">天气指南</span>
+                <div class="row1">
+                    <span id="time"></span>
+                    <span id="city"></span>
+                </div>
+                <div class="row2">
+                    <input class="textCity" type = "text" placeholder="城市名"/>
+                    <input class="btnSubmit" type = "button" value="提交" onclick="getWeather()"/>
+                </div>
+                
+            </div>
+            <hr/>
+            <div class="tadayWeather">
+                <p style="font-size: 21px;">当前天气</p>
+                <p>天气： <span id="weather"></span></p>
+                <p>气温： <span id="temperature"></span></p>
+                <p>风向： <span id="windDirection"></span></p>
+                <p>风力： <span id="windPower"></span></p>
+                <p>空气质量指数： <span id="airQualityIndex"></span></p>
+                <p>首要污染物： <span id="primaryPollutant"></span></p>
+                <p>空气湿度： <span id="airHumidity"></span></p>
+            </div>
+            <hr/>
+            <div class="futureWeather">
+                <div class="day2">
+                    <p class="xq"></p>
+                    <p>白天天气: <span class="dayWeather"></span></p>
+                    <p>晚上天气: <span class="Nightweather"></span></p>
+                    <p>气温: <span class="temperatureF"></span></p>
+                </div>
+                <div class="day3">
+                    <p class="xq"></p>
+                    <p>白天天气: <span class="dayWeather"></span></p>
+                    <p>晚上天气: <span class="Nightweather"></span></p>
+                    <p>气温: <span class="temperatureF"></span></p>
+                </div>
+                <div class="day4">
+                    <p class="xq"></p>
+                    <p>白天天气: <span class="dayWeather"></span></p>
+                    <p>晚上天气: <span class="Nightweather"></span></p>
+                    <p>气温: <span class="temperatureF"></span></p>
+                </div>
+                <div class="day5">
+                    <p class="xq"></p>
+                    <p>白天天气: <span class="dayWeather"></span></p>
+                    <p>晚上天气: <span class="Nightweather"></span></p>
+                    <p>气温: <span class="temperatureF"></span></p>
+                </div>
+                <div class="day6">
+                    <p class="xq"></p>
+                    <p>白天天气: <span class="dayWeather"></span></p>
+                    <p>晚上天气: <span class="Nightweather"></span></p>
+                    <p>气温: <span class="temperatureF"></span></p>
+                </div>
+                <div class="day7">
+                    <p class="xq"></p>
+                    <p>白天天气: <span class="dayWeather"></span></p>
+                    <p>晚上天气: <span class="Nightweather"></span></p>
+                    <p>气温: <span class="temperatureF"></span></p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

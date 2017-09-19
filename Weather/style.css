@@ -1,0 +1,61 @@
+body {
+    text-align: center;
+}
+.top {
+    margin: 20px 0 0 10px;
+    display: inline-block;
+}
+.bigFont {
+    font-size: 30px;
+    font-family: YouYuan;
+    color: cadetblue;
+    font-weight: 600;
+}
+.mainBody {
+    margin: 0 120px;
+}
+.row1 {
+    margin-left: -320px;
+    color:darkorange;
+}
+#time {
+    font-size: 18px;
+}
+#city {
+    margin-left: 40px;
+    font-size: 28px;
+}
+.tadayWeather span {
+    margin-left: 20px;
+}
+.futureWeather {
+    float: left;
+    font-size: 12px;
+}
+.futureWeather div {
+    float: left;
+}
+.day3,.day4,.day5,.day6,.day7{
+    margin-left: 100px;
+}
+.day2 {
+    margin-left: 20px;
+}
+.row2 {
+    float: right;
+}
+.textCity {
+    width: 40px;
+    height: 20px;
+    padding: 4px;
+}
+.btnSubmit {
+    margin-left: 15px;
+    color: #E6501E;
+    border: 1px solid #E6501E;
+    border-radius: 3px;
+    width: 65px;
+    height: 30px;
+    background-color: white;
+}
+
