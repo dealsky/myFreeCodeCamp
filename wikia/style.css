@@ -1,0 +1,74 @@
+.left {
+  float: left;
+  height: auto;
+  width: 18%;
+  background-color: white;
+  margin: 0px;
+  text-align: center;
+  padding: 20px 0px;
+}
+.rollBtn {
+  width: 80px;
+  height: 30px;
+  background-color: white;
+  color: #E6501E;
+  border: 1px solid #E6501E;
+  border-radius: 3px;
+}
+.right {
+  margin-left: 10px;
+  float: left;
+  width: 72%;
+  background-color: whitesmoke;
+}
+body {
+  background-image: url(bg.jpg);
+}
+.searchBar {
+  margin-top: 20px;
+}
+.searchText {
+  width: 120px;
+  height: 25px;
+  font-size: 16px;
+  border-radius: 10px;
+}
+.searchBtn {
+  width: 60px;
+  height: px;
+  margin-left: 25px;
+  background-color: white;
+  color: cornflowerblue;
+  border: 1px solid cornflowerblue;
+  border-radius: 3px;
+}
+.right {
+  padding-right: 60px;
+}
+.wiki-ul {
+  list-style-type: none;
+}
+.wiki-ul li {
+  margin-top: 5px;
+  padding: 5px 20px;
+  height: 120px;
+  width: 100%;
+  border: 1px solid #E6501E;
+  border-radius: 12px;
+}
+.span-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+.wiki-ul li a:link {
+  text-decoration: none;
+  color: black;
+}
+.wiki-image {
+  float: left;
+  margin-right:20px;
+}
+.span-extract {
+  float: left;
+  font-size: 12px;
+}
