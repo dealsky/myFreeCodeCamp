@@ -4,9 +4,9 @@
         <title>天气指南~~</title>
         <link type="text/css" rel="stylesheet" href="style.css"/>
         <script src="javascript.js"></script>
-        <script src="../Frames/jquery-3.2.1.min.js"></script>
+        <script src=../Frames/jquery-3.2.1.min.js></script>
     </head>
-    <body onload="getWeather()">
+    <body onload="loadWeather()" onkeydown="keyDownWeather()">
         <div class="mainBody">
             <div class="top">
                 <a href="https://www.showapi.com/api/lookPoint/9" target="_blank"><img src="logo_white.png"/></a><span class="bigFont">天气指南</span>
@@ -16,7 +16,7 @@
                 </div>
                 <div class="row2">
                     <input class="textCity" type = "text" placeholder="城市名"/>
-                    <input class="btnSubmit" type = "button" value="提交" onclick="getWeather()"/>
+                    <input class="btnSubmit" type = "button" value="提交" onclick="loadWeather()"/>
                 </div>
                 
             </div>

@@ -1,3 +1,10 @@
+function loadWeather() {
+  getWeather();
+}
+function keyDownWeather() {
+  if(event.keyCode == 13)
+    getWeather();
+}
 function getWeather() {
     var cityName = $(".textCity").val();
     if(cityName == "")  cityName = "宁波";
@@ -5,7 +12,6 @@ function getWeather() {
     var url = "http://route.showapi.com/9-2?showapi_appid=46304&showapi_sign=b121570716a84dabbb0143ad58f76c18&area=" + cityName + "&needMoreDay=1&needIndex=1&needHourData=0&need3HourForcast=0&needAlarm=0&";
     
     $.get(url, function(data) {
-        //console.log(data.showapi_res_body.time);
         var time = data.showapi_res_body.time;
         var year = time.substr(0, 4);
         var month = time.substr(4, 2);
@@ -38,8 +44,7 @@ function getWeather() {
             [data.showapi_res_body.f6.day_weather, data.showapi_res_body.f6.night_weather, data.showapi_res_body.f6.day_air_temperature + "°/" + data.showapi_res_body.f6.night_air_temperature + "℃"],
             [data.showapi_res_body.f7.day_weather, data.showapi_res_body.f7.night_weather, data.showapi_res_body.f7.day_air_temperature + "°/" + data.showapi_res_body.f7.night_air_temperature + "℃"]
         ];
-        
-        
+      
         var j = 0;
         $(".futureWeather div").each(function() {
             var i = 0;
