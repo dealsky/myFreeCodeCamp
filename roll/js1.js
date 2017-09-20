@@ -2,8 +2,12 @@ var colors = ['#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6', 
 var twWord = "";
 
 $(document).ready(function () {
-    $("[class='rollBtn']").click(function () {
-        
+    $(".rollBtn").click();
+    $("[class='twBtn']").click(function () { 
+        window.open('https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + encodeURIComponent('"' + twWord + '" ' + ""));
+    }); 
+});
+function roll() {
         var url = "https://route.showapi.com/1211-1?showapi_appid=46304&showapi_sign=b121570716a84dabbb0143ad58f76c18&count=1";
         var cnWord = "";
         var enWord = "";
@@ -35,9 +39,5 @@ $(document).ready(function () {
                 $("#text").text(cnWord);
                 twWord = enWord;
             }
-        );
-    });
-    $("[class='twBtn']").click(function () { 
-        window.open('https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + encodeURIComponent('"' + twWord + '" ' + ""));
-    });
-});
+        );   
+}
