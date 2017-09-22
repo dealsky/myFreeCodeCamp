@@ -26,7 +26,7 @@
 .room-info {
   margin-top: 3px;
   background-color: #C71585;
-  height: 50px;
+  height: 45px;
   padding: 10px 20px;
   overflow: hidden;
   white-space :nowrap;
@@ -35,22 +35,23 @@
 .room-info-g {
   margin-top: 3px;
   background-color: #808080;
-  height: 50px;
+  height: 45px;
   padding: 10px 20px;
   overflow: hidden;
   white-space :nowrap;
   text-overflow: ellipsis;      
 }
 .room-image {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   float: left;
 }
 .room-link {
-  line-height: 50px;
+  line-height: 45px;
   float: left;
   margin-left: 40px;
+  width: 125px;
 }
 .room-link:link {
   text-decoration: none;

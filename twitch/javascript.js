@@ -1,105 +1,80 @@
 var rooms =  ["ESL_SC2", "freecodecamp", "storbeck", "terakilobyte", "habathcx","RobotCaleb","thomasballinger","noobs2ninjas","beohoff"];
 
 var info = [];
-var infoN = [];
-
 
 function getInfo() {
-  
   rooms.forEach(function(room) {
+    
+    var object = new Object();
+    
     var url = "https://wind-bow.gomix.me/twitch-api/streams/";
     url += room + "?callback=?";
     $.getJSON(url, function(data) {
-      info.push(data);      
+    
+      if(data.stream == null){
+        object.game = "Offline";
+        object.status = false;
+      }
+      else if(data.stream == undefined){
+        object.game = "Account Closed";
+        object.status = false;
+      }
+      else{
+        object.game = data.stream.game;
+        object.status = true;
+      }
       url = "https://wind-bow.gomix.me/twitch-api/channels/";
       url += room + "?callback=?";
+      
       $.getJSON(url, function(dataN) {
-        infoN.push(dataN);
+        
+        object.logo = dataN.logo != null ? dataN.logo : "https://dummyimage.com/50x50/ecf0e7/5c5457.jpg&text=0x3F";
+        object.name = dataN.display_name != null ? dataN.display_name : room;
+        object.description = object.status != false ? dataN.status : "poi~";
+        object.href = object.game == "Account Closed" ? "#" : dataN.url;
+        object.color = object.status == true ? "room-info" : "room-info-g";
+        
+        info.push(object);
+        $(".display").append("<div class='" + object.color  + "'><img src='" + object.logo + "' class='room-image'/><a class='room-link' href='" + object.href + "' target='_blank'>" + object.name + "</a><span class='room-description'>" + object.description + "</span></div>");
       });
     });
   });
 }
 
-function displayInfo(str) {
-  for(var i = 0; i<info.length; i++){
-    console.log(infoN[i]);
-    var game, status;
-    if(info[i].stream == null){
-        game = "Offline";
-        status = false;
-      }
-      else if(info[i].stream == undefined){
-        game = "Account Closed";
-        status = false;
-      }
-      else{
-        game = info[i].stream.game;
-        status = true;
-    }
-    var logo, name, description, href;
-    if(infoN[i].logo != null){
-      logo = infoN[i].logo;
-    }
-    else{
-      logo = "https://dummyimage.com/50x50/ecf0e7/5c5457.jpg&text=0x3F";
-    }
-        
-    if(infoN[i].display_name != null){
-      name = infoN[i].display_name;
-    }
-    else{
-      name = rooms[i];
-    }
-        
-    if(status){
-      description = infoN[i].status;
-    }
-    else{
-      description = "poi~";
-    }
-        
-    if(game == "Account Closed"){
-      href = "#";
-    }
-    else{
-      href = infoN[i].url;
-    }
-    var color = status==true ? "room-info" : "room-info-g";
+function displayInfo(info, str) {
+  console.log(info);
+  for(var data in info){
+    console.log(data);
     if(str == "all"){
-      $(".display").append("<div class='" + color  + "'><img src='" + logo + "' class='room-image'/><a class='room-link' href='" + href + "' target='_blank'>" + name + "</a><span class='room-description'>" + description + "</span></div>");
+      $(".display").append("<div class='" + data.color  + "'><img src='" + data.logo + "' class='room-image'/><a class='room-link' href='" + data.href + "' target='_blank'>" + data.name + "</a><span class='room-description'>" + data.description + "</span></div>");
     }
     else if(str == "online"){
-      if(status){
-        $(".display").append("<div class='" + color  + "'><img src='" + logo + "' class='room-image'/><a class='room-link' href='" + href + "' target='_blank'>" + name + "</a><span class='room-description'>" + description + "</span></div>");
+      if(data.status){
+        $(".display").append("<div class='" + data.color  + "'><img src='" + data.logo + "' class='room-image'/><a class='room-link' href='" + data.href + "' target='_blank'>" + data.name + "</a><span class='room-description'>" + data.description + "</span></div>");
       }
     }
     else{
-      $(".display").append("<div class='" + color  + "'><img src='" + logo + "' class='room-image'/><a class='room-link' href='" + href + "' target='_blank'>" + name + "</a><span class='room-description'>" + description + "</span></div>");
+      $(".display").append("<div class='" + data.color  + "'><img src='" + data.logo + "' class='room-image'/><a class='room-link' href='" + data.href + "' target='_blank'>" + data.name + "</a><span class='room-description'>" + data.description + "</span></div>");
     }
   }
 }
 
 $(document).ready(function() {
-  
   getInfo();
+  
   $("#all").click(function() {
-    $(".display div").each(function() {
-      $(this).remove();
-    });
-    displayInfo("all");
-  });
+    $(".room-info").show();
+    $(".room-info-g").show();
+  })
   
   $("#online").click(function() {
-    $(".diaplay div").each(function() {
-      $(this).remove();
-    });
-    displayInfo("online");
-  });
+    $(".room-info").show();
+    $(".room-info-g").hide();
+  })
   
   $("#offline").click(function() {
-    $(".diaplay div").each(function() {
-      $(this).remove();
-    });
-    displayInfo("offline");
-  });
+    $(".room-info").hide();
+    $(".room-info-g").show();
+  })
+  
 });
