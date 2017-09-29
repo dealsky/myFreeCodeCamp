@@ -2,33 +2,56 @@ body {
     background-color: burlywood;
 }
 .calculator {
-    background-color: white;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -240px;
-    margin-left: -150px;
-    width: 300px;
-    height: 480px;
+    margin-top: -6.49cm;
+    margin-left: -3.79cm;
+    width: 7.58cm;
+    height: 12.98cm;
 }
 .button-num {
-    width: 75px;
-    height: 80px;
+    width: 1.87cm;
+    height: 2.12cm;
+    float: left;
+    border: 0px;
+    font-size: 25px;
+    background-color: #FAFAFA;
+    
+
 }
 .button-op {
+    width: 1.97cm;
+    height: 1.696cm;
+    float: right;
+    border: 0px;
+    font-size: 25px;
+    background-color: #EEEEEE;
     
+}
+.button-eq {
+    background-color: #E0E0E0;
 }
 .screen-main {
     width: 100%;
-    height: 80px;
+    height: 4.35cm;
+    text-align: right;
+    font-size: 52px;
+    background-color: white;
+    border: 0px;
+    box-shadow: 0px 0.8px 1px #D5D5D5;
 }
 .num {
-    position: absolute;
+    float: left;
     width: 75%;
-    background-color: aqua;
     height: auto;
 }
 .op {
-    widows: 25%;
+    float: right;
+    width: 25%;
+    float: right;
+}
+button {
     
+    outline: none;
 }
