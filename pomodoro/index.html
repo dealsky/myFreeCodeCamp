@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>pomodoro</title>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <link rel="stylesheet" type="text/css" href="../Frames/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+        
+    </head>
+    <body style="background-color: #333333">
+        <div class="container-fluid">
+            
+            <div class="row text-head">
+                <div class="col-md-12">
+                    <h1>pomodoro</h1>
+                </div>
+            </div>
+            
+            <div class="row controller">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="col-md-6 left">
+                        <span class="length-text">BREAK LENGTH</span><br/>
+                        <input type="button" class="length-button" value="-"/>
+                        <span class="length-num">5</span>
+                        <input type="button" class="length-button" value="+"/>
+                    </div>
+                    <div class="col-md-6 right">
+                        <span class="length-text">SESSION LENGTH</span><br/>
+                        <input type="button" class="length-button" value="-"/>
+                        <span class="length-num">25</span>
+                        <input type="button" class="length-button" value="+"/>
+                    </div>
+                </div>   
+            </div>
+            
+            <div class="row clock">
+                <div class="col-md-12">
+                    <button class="clock-button">
+                        <p class="clock-top">Length!</p>
+                        <p class="clock-buttom">25</p>
+                    </button>
+                </div>
+            </div>
+              
+        </div>
+        
+        <script src="../Frames/jquery-3.2.1.min.js"></script>
+        <script src="javascript.js"></script>
+    </body>
+</html>

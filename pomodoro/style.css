@@ -1,0 +1,60 @@
+.text-head {
+    text-align: center;
+    margin-top: 4%;
+    color: white;
+    font-family: Open Sans;
+}
+
+.controller {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.length-text {
+    color: white;
+    font-size: 14px;
+    font-family: Open Sans;
+}
+
+.length-num {
+    color: white;
+    font-size: 28px;
+    margin: auto 12px auto 12px;
+    font-family: Open Sans;
+}
+
+.length-button {
+    font-size: 24px;
+    background-color: inherit;
+    color: white;
+    border: none;
+    outline: none;
+    font-family: Open Sans;
+}
+
+.clock {
+    margin-top: 45px;
+    text-align: center;
+}
+
+.clock-button {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    outline: none;
+    background-color: inherit;
+    border: 2px solid greenyellow;
+    color: white;
+    font-family: Open Sans;
+}
+
+.clock-top {
+    margin-bottom: 52px;
+    font-size: 52px;
+    font-family: Open Sans;
+}
+.clock-buttom {
+    font-size: 52px;
+    font-family: Open Sans;
+    margin-bottom: -15px;
+}
