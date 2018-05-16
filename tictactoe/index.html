@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>demo</title>
+    <link type="text/css" rel="stylesheet" href="../Frames/font-awesome-4.7.0/css/font-awesome.min.css">
+	<style>
+        /*line #489E8E*/
+        /*X #545454*/
+        /*O #F1EBD6*/
+		.main-wrapper {
+            margin: 30px auto 0 auto;
+            width: 475px;
+            height: 475px;
+            background: #56BAAC;
+        }
+
+        .main-wrapper * {
+            box-sizing: border-box;
+        }
+
+        .tictactoe {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .tictactoe .list {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .tictactoe .list .line {
+            display: flex;
+            flex: 1;
+        }
+
+        .tictactoe .list .item {
+            display: flex;
+            flex: 1;
+            border: 6px solid #489E8E;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #line1 .item {
+            border-top: none;
+        }
+
+        #line3 .item {
+            border-bottom: none;
+        }
+
+        .tictactoe .list .item:first-child {
+            border-left: none;
+        }
+
+        .tictactoe .list .item:last-child {
+            border-right: none;
+        }
+
+        .tictactoe .icon {
+            font-size: 112px;
+        }
+
+        .tictactoe .icon.fa-circle-o {
+            color: #F1EBD6;
+        }
+
+        .tictactoe .icon.fa-close {
+            color: #545454;
+        }
+	</style>
+</head>
+<body>
+	<div class="main-wrapper">
+        <div class="tictactoe">
+            <div class="list">
+                <div class="line" id="line1">
+                    <div class="item">
+                        <i class="icon fa fa-circle-o"></i>
+                    </div>
+                    <div class="item">
+                        <i class="icon fa fa-close"></i>
+                    </div>
+                    <div class="item">
+                        <i class="icon fa fa-close"></i>
+                    </div>
+                </div>
+                <div class="line" id="line2">
+                    <div class="item">
+                        <i class="icon fa fa-close"></i>
+                    </div>
+                    <div class="item">
+                        <i class="icon fa fa-circle-o"></i>
+                    </div>
+                    <div class="item">
+                        <i class="icon fa fa-circle-o"></i>
+                    </div>
+                </div>
+                <div class="line" id="line3">
+                    <div class="item">
+                        <i class="icon fa fa-close"></i>
+                    </div>
+                    <div class="item">
+                        <i class="icon fa fa-circle-o"></i>
+                    </div>
+                    <div class="item">
+                        <i class="icon fa fa-close"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</body>
+<script src="../Frames/jquery-3.2.1.min.js"></script>
+<script>
+	
+</script>
+</html>
