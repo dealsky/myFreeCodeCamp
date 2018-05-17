@@ -205,11 +205,33 @@
 <script src="../resources/jquery-3.2.1.min.js"></script>
 <script>
 
+    // 开始游戏或选择玩家状态
+    const CHOOSE_ROLE = 1;
+    // 游戏进行中
+    const IN_GAME = 2;
+
+    // 当前角色为O
+    const ROLE_CIRCLE = 3;
+    // 当前角色为X
+    const ROLE_CLOSE = 4;
+
     const game = {
 
+        status: 0,
+        currentRole: 0,
+
         $allIcon: $(".tictactoe .icon"),
+        $selectClose: $("#selectClose"),
+        $selectCircle: $("#selectCircle"),
 
-
+        // 游戏初始化
+        init: function() {
+            game.status = CHOOSE_ROLE;
+            game.currentRole = ROLE_CLOSE;
+            game.clearAllIcon();
+            game.bindClickListener();
+        },
+        // 显示图标
         displayIcon: function ($item, icon) {
             if (icon === "circle") {
                 $item.children(".fa-circle-o").show();
@@ -217,11 +239,31 @@
                 $item.children(".fa-close").show();
             }
         },
+        // 清空棋盘
         clearAllIcon: function () {
-            this.$allIcon.each(function () {
+            game.$allIcon.each(function () {
                 $(this).hide();
             });
+        },
+        // 绑定点击事件
+        bindClickListener: function () {
+            // 选择O
+            game.$selectCircle.on("click", this.selectCircle);
+
+            // 点击棋盘
+
+            // 点击重新开始按钮
+        },
+        selectCircle: function () {
+            if (game.status !== CHOOSE_ROLE) {
+                return;
+            }
+            game.currentRole = ROLE_CIRCLE;
+            game.$selectClose.removeClass("active");
+            game.$selectCircle.addClass("active");
+            game.status = IN_GAME;
         }
     };
+    game.init();
 </script>
 </html>
