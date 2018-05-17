@@ -219,15 +219,20 @@
 
         status: 0,
         currentRole: 0,
+        activeRole: 0,
 
         $allIcon: $(".tictactoe .icon"),
         $selectClose: $("#selectClose"),
         $selectCircle: $("#selectCircle"),
+        $restartGame: $(".restart-game"),
 
         // 游戏初始化
         init: function() {
             game.status = CHOOSE_ROLE;
             game.currentRole = ROLE_CLOSE;
+            game.activeRole = ROLE_CLOSE;
+
+            game.changeRole(ROLE_CLOSE);
             game.clearAllIcon();
             game.bindClickListener();
         },
@@ -253,15 +258,27 @@
             // 点击棋盘
 
             // 点击重新开始按钮
+            game.$restartGame.on("click", function () {
+                game.init();
+            })
+
         },
         selectCircle: function () {
             if (game.status !== CHOOSE_ROLE) {
                 return;
             }
             game.currentRole = ROLE_CIRCLE;
-            game.$selectClose.removeClass("active");
-            game.$selectCircle.addClass("active");
+            game.changeRole(ROLE_CIRCLE);
             game.status = IN_GAME;
+        },
+        changeRole: function (nextRole) {
+            if (nextRole === ROLE_CLOSE) {
+                game.$selectCircle.removeClass("active");
+                game.$selectClose.addClass("active");
+            } else {
+                game.$selectClose.removeClass("active");
+                game.$selectCircle.addClass("active");
+            }
         }
     };
     game.init();
