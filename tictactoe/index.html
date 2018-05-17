@@ -1,75 +1,128 @@
+<style>
+    body {
+        background: #f8f8f8;
+    }
+
+    .main-wrapper {
+        margin: 0 auto;
+        width: 425px;
+        height: 425px;
+    }
+
+    .main-wrapper * {
+        box-sizing: border-box;
+    }
+
+    .tictactoe {
+        margin-top: 20px;
+        height: 100%;
+        background: #56BAAC;
+        overflow: hidden;
+    }
+
+    .tictactoe .list {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .tictactoe .list .line {
+        display: flex;
+        flex: 1;
+    }
+
+    .tictactoe .list .item {
+        display: flex;
+        flex: 1;
+        border: 6px solid #489E8E;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #line1 .item {
+        border-top: none;
+    }
+
+    #line3 .item {
+        border-bottom: none;
+    }
+
+    .tictactoe .list .item:first-child {
+        border-left: none;
+    }
+
+    .tictactoe .list .item:last-child {
+        border-right: none;
+    }
+
+    .tictactoe .icon {
+        font-size: 112px;
+    }
+
+    .tictactoe .icon.fa-circle-o {
+        color: #F1EBD6;
+    }
+
+    .tictactoe .icon.fa-close {
+        color: #545454;
+    }
+
+    .select-person {
+        margin-top: 15px;
+        height: 40px;
+        font-size: 0;
+    }
+
+    .select-person .item {
+        position: relative;
+        display: inline-block;
+        padding: 0 12px;
+        width: 49%;
+        height: 100%;
+        line-height: 40px;
+        text-align: right;
+        border-radius: 2px;
+        border-bottom: 2px solid transparent;
+        font-size: 24px;
+        color: rgba(0, 0, 0, .54);
+        background: #fff;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .16);
+    }
+
+    .select-person .item.active {
+        border-bottom-color: #56BAAC;
+    }
+
+    #selectCircle {
+        margin-right: 2%;
+    }
+
+    .select-person .icon {
+        position: absolute;
+        top: 10px;
+        left: 12px;
+        font-size: 20px;
+        color: #000;
+    }
+</style>
 <!DOCTYPE html>
 <html>
 <head>
     <title>demo</title>
     <link type="text/css" rel="stylesheet" href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
-    <style>
-        .main-wrapper {
-            margin: 30px auto 0 auto;
-            width: 425px;
-            height: 425px;
-            background: #56BAAC;
-        }
-
-        .main-wrapper * {
-            box-sizing: border-box;
-        }
-
-        .tictactoe {
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .tictactoe .list {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .tictactoe .list .line {
-            display: flex;
-            flex: 1;
-        }
-
-        .tictactoe .list .item {
-            display: flex;
-            flex: 1;
-            border: 6px solid #489E8E;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #line1 .item {
-            border-top: none;
-        }
-
-        #line3 .item {
-            border-bottom: none;
-        }
-
-        .tictactoe .list .item:first-child {
-            border-left: none;
-        }
-
-        .tictactoe .list .item:last-child {
-            border-right: none;
-        }
-
-        .tictactoe .icon {
-            font-size: 112px;
-        }
-
-        .tictactoe .icon.fa-circle-o {
-            color: #F1EBD6;
-        }
-
-        .tictactoe .icon.fa-close {
-            color: #545454;
-        }
-    </style>
 </head>
 <body>
 <div class="main-wrapper">
+    <div class="select-person">
+        <div class="item active" id="selectCircle">
+            <i class="icon fa fa-circle-o"></i>
+            <span class="count">0</span>
+        </div>
+        <div class="item" id="selectCompany">
+            <i class="icon fa fa-close"></i>
+            <span class="count">0</span>
+        </div>
+    </div>
     <div class="tictactoe">
         <div class="list">
             <div class="line" id="line1">
@@ -97,6 +150,6 @@
 </body>
 <script src="../resources/jquery-3.2.1.min.js"></script>
 <script>
-  const game = {};
+    const game = {};
 </script>
 </html>
