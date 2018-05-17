@@ -1,124 +1,140 @@
-<style>
-    body {
-        background: #f8f8f8;
-    }
-
-    .main-wrapper {
-        margin: 0 auto;
-        width: 425px;
-        height: 425px;
-    }
-
-    .main-wrapper * {
-        box-sizing: border-box;
-    }
-
-    .tictactoe {
-        padding: 20px;
-        height: 100%;
-        border-radius: 15px;
-        background: #56BAAC;
-        overflow: hidden;
-    }
-
-    .tictactoe .list {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-
-    .tictactoe .list .line {
-        display: flex;
-        flex: 1;
-    }
-
-    .tictactoe .list .item {
-        display: flex;
-        flex: 1;
-        border: 6px solid #489E8E;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #line1 .item {
-        border-top: none;
-    }
-
-    #line3 .item {
-        border-bottom: none;
-    }
-
-    .tictactoe .list .item:first-child {
-        border-left: none;
-    }
-
-    .tictactoe .list .item:last-child {
-        border-right: none;
-    }
-
-    .tictactoe .icon {
-        display: none;
-        font-size: 98px;
-    }
-
-    .tictactoe .icon.fa-circle-o {
-        color: #F1EBD6;
-    }
-
-    .tictactoe .icon.fa-close {
-        color: #545454;
-    }
-
-    .select-person {
-        margin-top: 15px;
-        height: 40px;
-        font-size: 0;
-    }
-
-    .select-person .item {
-        position: relative;
-        display: inline-block;
-        padding: 0 12px;
-        width: 49%;
-        height: 100%;
-        line-height: 40px;
-        text-align: right;
-        border-radius: 2px;
-        border-bottom: 2px solid transparent;
-        font-size: 24px;
-        color: rgba(0, 0, 0, .54);
-        background: #fff;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, .16);
-        cursor: pointer;
-    }
-
-    .select-person .item.active {
-        border-bottom-color: #56BAAC;
-    }
-
-    #selectClose {
-        margin-right: 2%;
-    }
-
-    .select-person .icon {
-        position: absolute;
-        top: 10px;
-        left: 12px;
-        font-size: 20px;
-        color: #000;
-    }
-
-    .game-info {
-        text-align: center;
-        color: rgba(0, 0, 0, 0.16)
-    }
-</style>
 <!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>demo</title>
     <link type="text/css" rel="stylesheet" href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            background: #f8f8f8;
+        }
+
+        .main-wrapper {
+            margin: 0 auto;
+            width: 425px;
+            height: 425px;
+        }
+
+        .main-wrapper * {
+            box-sizing: border-box;
+        }
+
+        .tictactoe {
+            padding: 20px;
+            height: 100%;
+            border-radius: 15px;
+            background: #56BAAC;
+            overflow: hidden;
+        }
+
+        .tictactoe .list {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .tictactoe .list .line {
+            display: flex;
+            flex: 1;
+        }
+
+        .tictactoe .list .item {
+            display: flex;
+            flex: 1;
+            border: 6px solid #489E8E;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #line1 .item {
+            border-top: none;
+        }
+
+        #line3 .item {
+            border-bottom: none;
+        }
+
+        .tictactoe .list .item:first-child {
+            border-left: none;
+        }
+
+        .tictactoe .list .item:last-child {
+            border-right: none;
+        }
+
+        .tictactoe .icon {
+            display: none;
+            font-size: 98px;
+        }
+
+        .tictactoe .icon.fa-circle-o {
+            color: #F1EBD6;
+        }
+
+        .tictactoe .icon.fa-close {
+            color: #545454;
+        }
+
+        .select-person {
+            margin-top: 15px;
+            height: 40px;
+            font-size: 0;
+        }
+
+        .select-person .item {
+            position: relative;
+            display: inline-block;
+            padding: 0 12px;
+            width: 49%;
+            height: 100%;
+            line-height: 40px;
+            text-align: right;
+            border-radius: 2px;
+            border-bottom: 2px solid transparent;
+            font-size: 24px;
+            color: rgba(0, 0, 0, .54);
+            background: #fff;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .16);
+            cursor: pointer;
+        }
+
+        .select-person .item.active {
+            border-bottom-color: #56BAAC;
+        }
+
+        #selectClose {
+            margin-right: 2%;
+        }
+
+        .select-person .icon {
+            position: absolute;
+            top: 10px;
+            left: 12px;
+            font-size: 20px;
+            color: #000;
+        }
+
+        .game-info {
+            text-align: center;
+            color: rgba(0, 0, 0, 0.16)
+        }
+
+        .restart-game {
+            margin-top: 15px;
+            padding: 10px 0;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 3px;
+            border: 1px solid #14bdac;
+            color: #14bdac;
+            transition: all .3s;
+        }
+
+        .restart-game:hover {
+            background: #14bdac;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
 <div class="main-wrapper">
@@ -180,6 +196,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="restart-game">
+        <span>重新开始游戏</span>
     </div>
 </div>
 </body>
