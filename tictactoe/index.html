@@ -16,6 +16,7 @@
     .tictactoe {
         padding: 20px;
         height: 100%;
+        border-radius: 15px;
         background: #56BAAC;
         overflow: hidden;
     }
@@ -115,23 +116,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>demo</title>
     <link type="text/css" rel="stylesheet" href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <div class="main-wrapper">
     <div class="select-person">
-        <div class="item active" id="selectCircle">
-            <i class="icon fa fa-circle-o"></i>
+        <div class="item active" id="selectCompany">
+            <i class="icon fa fa-close"></i>
             <span class="count">0</span>
         </div>
-        <div class="item" id="selectCompany">
-            <i class="icon fa fa-close"></i>
+        <div class="item" id="selectCircle">
+            <i class="icon fa fa-circle-o"></i>
             <span class="count">0</span>
         </div>
     </div>
     <div class="game-info">
-        <p>hello world</p>
+        <p>开始游戏或选择玩家</p>
     </div>
     <div class="tictactoe">
         <div class="list">
@@ -202,9 +204,5 @@
             });
         }
     };
-
-    $(".tictactoe .item").on("click", function () {
-        game.displayIcon($(this), "circle");
-    });
 </script>
 </html>
