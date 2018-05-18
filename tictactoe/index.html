@@ -217,7 +217,23 @@
     // 当前角色为X
     const ROLE_CLOSE = 5;
 
+    // 赢
+    const END_WIN = "win";
+    // 输
+    const END_LOST = "lose";
+    // 平局
+    const END_DRAW = "draw";
+
+    const X = 'X';
+    const O = 'O';
+
     const game = {
+
+        map: [
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ],
 
         status: 0,
         currentRole: 0,
@@ -284,13 +300,16 @@
             }
         },
         clickItem: function () {
+            const x = $(this).parent().index();
+            const y = $(this).index();
             // 如果状态不对,返回
             if (game.status !== GAMER_TIME) {
                 return;
             }
             // 判断该点是否能落子
-            // TODO
-
+            if (map[x][y] !== 0) {
+                return;
+            }
             // 显示对应的棋子
             game.displayIcon($(this), game.currentRole);
 
@@ -306,8 +325,7 @@
 
         },
         // 判断是否胜利
-        isWin: function () {
-
+        isWin: function (x, y) {
         }
     };
     game.init();
