@@ -207,38 +207,39 @@
 
     // 开始游戏或选择玩家状态
     const CHOOSE_ROLE = 1;
-    // 游戏进行中
-    const IN_GAME = 2;
+    // 电脑下棋
+    const COMPANY_TIME = 2;
+    // 玩家下棋
+    const GAMER_TIME = 3;
 
     // 当前角色为O
-    const ROLE_CIRCLE = 3;
+    const ROLE_CIRCLE = 4;
     // 当前角色为X
-    const ROLE_CLOSE = 4;
+    const ROLE_CLOSE = 5;
 
     const game = {
 
         status: 0,
         currentRole: 0,
-        activeRole: 0,
 
         $allIcon: $(".tictactoe .icon"),
         $selectClose: $("#selectClose"),
         $selectCircle: $("#selectCircle"),
         $restartGame: $(".restart-game"),
+        $item: $(".tictactoe .item"),
 
         // 游戏初始化
         init: function() {
             game.status = CHOOSE_ROLE;
             game.currentRole = ROLE_CLOSE;
-            game.activeRole = ROLE_CLOSE;
 
             game.changeRole(ROLE_CLOSE);
             game.clearAllIcon();
             game.bindClickListener();
         },
         // 显示图标
-        displayIcon: function ($item, icon) {
-            if (icon === "circle") {
+        displayIcon: function ($item, role) {
+            if (role === ROLE_CIRCLE) {
                 $item.children(".fa-circle-o").show();
             } else {
                 $item.children(".fa-close").show();
@@ -253,9 +254,10 @@
         // 绑定点击事件
         bindClickListener: function () {
             // 选择O
-            game.$selectCircle.on("click", this.selectCircle);
+            game.$selectCircle.on("click", game.selectCircle);
 
             // 点击棋盘
+            game.$item.on("click", game.clickItem);
 
             // 点击重新开始按钮
             game.$restartGame.on("click", function () {
@@ -269,7 +271,8 @@
             }
             game.currentRole = ROLE_CIRCLE;
             game.changeRole(ROLE_CIRCLE);
-            game.status = IN_GAME;
+            game.status = COMPANY_TIME;
+            // TODO 电脑开始下棋
         },
         changeRole: function (nextRole) {
             if (nextRole === ROLE_CLOSE) {
@@ -279,6 +282,32 @@
                 game.$selectClose.removeClass("active");
                 game.$selectCircle.addClass("active");
             }
+        },
+        clickItem: function () {
+            // 如果状态不对,返回
+            if (game.status !== GAMER_TIME) {
+                return;
+            }
+            // 判断该点是否能落子
+            // TODO
+
+            // 显示对应的棋子
+            game.displayIcon($(this), game.currentRole);
+
+            // TODO 判断是否胜利
+
+            // 改变状态为电脑下棋状态
+
+            // TODO 电脑开始下棋
+
+        },
+        // 电脑下棋
+        companyPlay: function() {
+
+        },
+        // 判断是否胜利
+        isWin: function () {
+
         }
     };
     game.init();
