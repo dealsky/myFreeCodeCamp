@@ -209,7 +209,6 @@
 </body>
 <script src="../resources/jquery-3.2.1.min.js"></script>
 <script>
-
     // 开始游戏或选择玩家状态
     const CHOOSE_ROLE = 1;
     // 电脑下棋
@@ -298,7 +297,6 @@
             game.$restartGame.on("click", function () {
                 game.init();
             })
-
         },
         selectCircle: function () {
             if (game.status !== CHOOSE_ROLE) {
@@ -306,7 +304,7 @@
             }
             game.currentRole = ROLE_CIRCLE;
             game.status = COMPANY_TIME;
-            // TODO 电脑开始下棋
+
             game.companyPlay();
         },
         changeRole: function () {
@@ -345,9 +343,7 @@
             game.map[x][y] = game.currentRole === ROLE_CLOSE ? X : O;
             game.count++;
 
-            // TODO 判断是否胜利
             const gameResult = game.isWin(x, y);
-            console.log(gameResult);
             if (gameResult) {
               if (gameResult === END_WIN) {
                   game.$gameInfo.html("<p>玩家获胜</p>")
@@ -364,11 +360,9 @@
             game.changeRole();
             game.status = COMPANY_TIME;
 
-            // TODO 电脑开始下棋
             setTimeout(function () {
                 game.companyPlay();
             }, 600);
-
         },
         // 电脑下棋
         companyPlay: function() {
@@ -379,6 +373,7 @@
             const randNum = Math.floor(Math.random() * rem + 1);
 
             for (let i = 0; i < 3; i++) {
+                let flag = false;
                 for (let j = 0; j < 3; j++) {
                     if (game.map[i][j] === 0) {
                         count++;
@@ -386,8 +381,12 @@
                     if (count === randNum) {
                       x = i;
                       y = j;
+                      flag = true;
                       break;
                     }
+                }
+                if (flag) {
+                    break;
                 }
             }
 
@@ -399,9 +398,9 @@
             const gameResult = game.isWin(x, y);
             if (gameResult) {
                 if (gameResult === END_WIN) {
-                    game.$gameInfo.html("<p>电脑获胜</p>")
-                } else if (gameResult === END_LOST) {
                     game.$gameInfo.html("<p>玩家获胜</p>")
+                } else if (gameResult === END_LOST) {
+                    game.$gameInfo.html("<p>电脑获胜</p>")
                 } else {
                     game.$gameInfo.html("<p>平局</p>")
                 }
