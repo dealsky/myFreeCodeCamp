@@ -261,11 +261,19 @@
             }
         },
         // 显示图标
-        displayIcon: function ($item, role) {
-            if (role === ROLE_CIRCLE) {
-                $item.children(".fa-circle-o").show();
+        displayIcon: function ($item) {
+            if (game.currentRole === ROLE_CIRCLE) {
+                if (game.status === GAMER_TIME) {
+                    $item.children(".fa-circle-o").show();
+                } else {
+                    $item.children(".fa-close").show();
+                }
             } else {
-                $item.children(".fa-close").show();
+                if (game.status === GAMER_TIME) {
+                    $item.children(".fa-close").show();
+                } else {
+                    $item.children(".fa-circle-o").show();
+                }
             }
         },
         // 清空棋盘
@@ -296,6 +304,7 @@
             game.currentRole = ROLE_CIRCLE;
             game.status = COMPANY_TIME;
             // TODO 电脑开始下棋
+            game.companyPlay();
         },
         changeRole: function () {
             let nextRole;
@@ -320,12 +329,15 @@
             if (game.status !== GAMER_TIME && game.status !== CHOOSE_ROLE) {
                 return;
             }
+            game.status = GAMER_TIME;
+
             // 判断该点是否能落子
             if (game.map[x][y] !== 0) {
                 return;
             }
             // 显示对应的棋子
-            game.displayIcon($(this), game.currentRole);
+            game.displayIcon($(this));
+            game.map[x][y] = game.currentRole === ROLE_CLOSE ? X : O;
             game.count++;
 
             // TODO 判断是否胜利
@@ -345,11 +357,47 @@
             game.status = COMPANY_TIME;
 
             // TODO 电脑开始下棋
+            game.companyPlay();
 
         },
         // 电脑下棋
         companyPlay: function() {
+            let x, y;
+            let count = 0;
 
+            const rem = 9 - game.count;
+            const randNum = Math.floor(Math.random() * rem + 1);
+
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (game.map[i][j] === 0) {
+                        count++;
+                    }
+                    if (count === randNum) {
+                      x = i;
+                      y = j;
+                      break;
+                    }
+                }
+            }
+
+            $dom = $(".tictactoe .list .line").eq(x).children(".item").eq(y);
+            game.displayIcon($dom);
+            game.map[x][y] = game.currentRole === ROLE_CLOSE ? O : X;
+            game.count++;
+
+            const gameResult = game.isWin(x, y);
+            if (gameResult) {
+              if (gameResult === END_WIN) {
+
+              } else if (gameResult === END_LOST) {
+
+              } else {
+
+              }
+            }
+
+            game.status = GAMER_TIME;
         },
         // 判断是否胜利
         isWin: function (x, y) {
