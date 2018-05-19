@@ -216,11 +216,13 @@
     const COMPANY_TIME = 2;
     // 玩家下棋
     const GAMER_TIME = 3;
+    // 游戏结束
+    const GAME_OVER = 4;
 
     // 当前角色为O
-    const ROLE_CIRCLE = 4;
+    const ROLE_CIRCLE = 5;
     // 当前角色为X
-    const ROLE_CLOSE = 5;
+    const ROLE_CLOSE = 6;
 
     // 赢
     const END_WIN = "win";
@@ -345,14 +347,17 @@
 
             // TODO 判断是否胜利
             const gameResult = game.isWin(x, y);
+            console.log(gameResult);
             if (gameResult) {
               if (gameResult === END_WIN) {
-
+                  game.$gameInfo.html("<p>玩家获胜</p>")
               } else if (gameResult === END_LOST) {
-
+                  game.$gameInfo.html("<p>电脑获胜</p>")
               } else {
-
+                  game.$gameInfo.html("<p>平局</p>")
               }
+              game.status = GAME_OVER;
+              return;
             }
 
             // 改变状态为电脑下棋状态
@@ -393,13 +398,15 @@
 
             const gameResult = game.isWin(x, y);
             if (gameResult) {
-              if (gameResult === END_WIN) {
-
-              } else if (gameResult === END_LOST) {
-
-              } else {
-
-              }
+                if (gameResult === END_WIN) {
+                    game.$gameInfo.html("<p>电脑获胜</p>")
+                } else if (gameResult === END_LOST) {
+                    game.$gameInfo.html("<p>玩家获胜</p>")
+                } else {
+                    game.$gameInfo.html("<p>平局</p>")
+                }
+                game.status = GAME_OVER;
+                return;
             }
 
             game.changeRole();
@@ -432,8 +439,10 @@
           function result(value) {
             if (value === X) {
               return currentRole === ROLE_CLOSE ? END_WIN : END_LOST;
-            } else {
+            } else if (value === O) {
               return currentRole === ROLE_CIRCLE ? END_WIN : END_LOST;
+            } else {
+              return false;
             }
           }
         }
