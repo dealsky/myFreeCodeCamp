@@ -228,15 +228,10 @@
     const O = 'O';
 
     const game = {
-
-        map: [
-            [0, 0, 0],
-            [0, 0, 0],
-            [0, 0, 0]
-        ],
-
+        map: [[], [], []],
         status: 0,
         currentRole: 0,
+        count: 0,
 
         $allIcon: $(".tictactoe .icon"),
         $selectClose: $("#selectClose"),
@@ -248,10 +243,22 @@
         init: function() {
             game.status = CHOOSE_ROLE;
             game.currentRole = ROLE_CLOSE;
+            game.count = 0;
+            game.map = [
+              [0, 0, 0],
+              [0, 0, 0],
+              [0, 0, 0]
+            ];
 
-            game.changeRole(ROLE_CLOSE);
             game.clearAllIcon();
             game.bindClickListener();
+
+            if (!game.$selectClose.hasClass("active")) {
+                game.$selectClose.addClass("active");
+            }
+            if (game.$selectCircle.hasClass("active")) {
+                game.$selectCircle.removeClass("active");
+            }
         },
         // 显示图标
         displayIcon: function ($item, role) {
@@ -285,12 +292,19 @@
             if (game.status !== CHOOSE_ROLE) {
                 return;
             }
+            game.changeRole();
             game.currentRole = ROLE_CIRCLE;
-            game.changeRole(ROLE_CIRCLE);
             game.status = COMPANY_TIME;
             // TODO 电脑开始下棋
         },
-        changeRole: function (nextRole) {
+        changeRole: function () {
+            let nextRole;
+            if (game.currentRole === ROLE_CLOSE) {
+                nextRole = ROLE_CIRCLE;
+            } else {
+                nextRole = ROLE_CLOSE;
+            }
+
             if (nextRole === ROLE_CLOSE) {
                 game.$selectCircle.removeClass("active");
                 game.$selectClose.addClass("active");
@@ -303,19 +317,32 @@
             const x = $(this).parent().index();
             const y = $(this).index();
             // 如果状态不对,返回
-            if (game.status !== GAMER_TIME) {
+            if (game.status !== GAMER_TIME && game.status !== CHOOSE_ROLE) {
                 return;
             }
             // 判断该点是否能落子
-            if (map[x][y] !== 0) {
+            if (game.map[x][y] !== 0) {
                 return;
             }
             // 显示对应的棋子
             game.displayIcon($(this), game.currentRole);
+            game.count++;
 
             // TODO 判断是否胜利
+            const gameResult = game.isWin(x, y);
+            if (gameResult) {
+              if (gameResult === END_WIN) {
+
+              } else if (gameResult === END_LOST) {
+
+              } else {
+
+              }
+            }
 
             // 改变状态为电脑下棋状态
+            game.changeRole();
+            game.status = COMPANY_TIME;
 
             // TODO 电脑开始下棋
 
@@ -326,6 +353,35 @@
         },
         // 判断是否胜利
         isWin: function (x, y) {
+          const map = game.map;
+          const currentRole = game.currentRole;
+
+          if (map[x][0] === map[x][1] && map[x][1] === map[x][2]) {
+            return result(map[x][0]);
+          }
+          if (map[0][y] === map[1][y] && map[1][y] === map[2][y]) {
+            return result(map[0][y]);
+          }
+          if (map[0][0] === map[1][1] && map[1][1] === map[2][2]) {
+            return result(map[0][0]);
+          }
+          if (map[0][2] === map[1][1] && map[1][1] === map[2][0]) {
+            return result(map[0][2]);
+          }
+
+          if (game.count === 9) {
+            return END_DRAW;
+          }
+
+          return false;
+
+          function result(value) {
+            if (value === X) {
+              return currentRole === ROLE_CLOSE ? END_WIN : END_LOST;
+            } else {
+              return currentRole === ROLE_CIRCLE ? END_WIN : END_LOST;
+            }
+          }
         }
     };
     game.init();
