@@ -3,12 +3,90 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>simon</title>
+    <!--green #00A74A-->
+    <!--green-active #00A74A-->
+    <!--yellow #CCA707-->
+    <!--yellow-active #FED93F-->
+    <!--blue #094A8F-->
+    <!--blue-active 1C8CFF-->
+    <!--red #9F0F17-->
+    <!--red-active #FF4C4C-->
+    <!--green #00A74A-->
+    <!--green-active #13FF7C-->
     <style>
+        body {
+            margin: 0;
+        }
 
+        .simon-wrapper {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            width: 472px;
+            height: 472px;
+            transform: translateX(-50%) translateY(-50%);
+        }
+
+        .simon {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+            text-align: center;
+            background: #333;
+        }
+
+        .block-wrapper {
+            display: inline-block;
+            margin-top: 26px;
+            border-radius: 100%;
+            font-size: 0;
+        }
+
+        .block-wrapper .block {
+            display: inline-block;
+            width: 200px;
+            height: 200px;
+        }
+
+        .block.green {
+            margin: 0 20px 20px 0;
+            border-top-left-radius: 100%;
+            background: #00A74A;
+        }
+
+        .block.red {
+            margin-bottom: 20px;
+            border-top-right-radius: 100%;
+            background: #9F0F17;
+        }
+
+        .block.yellow {
+            margin-right: 20px;
+            border-bottom-left-radius: 100%;
+            background: #CCA707;
+        }
+
+        .block.blue {
+            border-bottom-right-radius: 100%;
+            background: #094A8F;
+        }
     </style>
 </head>
 <body>
+    <div class="simon-wrapper">
+        <div class="simon">
+            <div class="block-wrapper">
+                <div class="block green"></div>
+                <div class="block red"></div>
+                <div class="block yellow"></div>
+                <div class="block blue"></div>
+            </div>
+            <div class="center">
 
+            </div>
+        </div>
+    </div>
 </body>
 <script src="../resources/jquery-3.2.1.min.js"></script>
 </html>
