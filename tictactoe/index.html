@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>demo</title>
+    <title>tictactoe</title>
     <link type="text/css" rel="stylesheet" href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
     <style>
         body {
@@ -258,20 +258,20 @@
         $gameInfo: $(".game-info"),
 
         // 游戏初始化
-        init: function() {
+        init: function () {
             game.status = CHOOSE_ROLE;
             game.currentRole = ROLE_CLOSE;
             game.activeRole = ROLE_CLOSE;
             game.count = 0;
             game.map = [
-              [0, 0, 0],
-              [0, 0, 0],
-              [0, 0, 0]
+                [0, 0, 0],
+                [0, 0, 0],
+                [0, 0, 0]
             ];
             game.weight = [
-              [0, 0, 0],
-              [0, 0, 0],
-              [0, 0, 0]
+                [0, 0, 0],
+                [0, 0, 0],
+                [0, 0, 0]
             ];
 
             game.$gameInfo.html("<p>开始游戏或选择玩家</p>");
@@ -360,15 +360,15 @@
 
             const gameResult = game.isWin(x, y);
             if (gameResult) {
-              if (gameResult === END_WIN) {
-                  game.$gameInfo.html("<p>玩家获胜</p>")
-              } else if (gameResult === END_LOST) {
-                  game.$gameInfo.html("<p>电脑获胜</p>")
-              } else {
-                  game.$gameInfo.html("<p>平局</p>")
-              }
-              game.status = GAME_OVER;
-              return;
+                if (gameResult === END_WIN) {
+                    game.$gameInfo.html("<p>玩家获胜</p>")
+                } else if (gameResult === END_LOST) {
+                    game.$gameInfo.html("<p>电脑获胜</p>")
+                } else {
+                    game.$gameInfo.html("<p>平局</p>")
+                }
+                game.status = GAME_OVER;
+                return;
             }
 
             // 改变状态为电脑下棋状态
@@ -380,7 +380,7 @@
             }, 600);
         },
         // 电脑下棋
-        companyPlay: function() {
+        companyPlay: function () {
             let x, y;
 
             const role = game.currentRole === ROLE_CLOSE ? O : X;
@@ -462,37 +462,37 @@
         },
         // 判断是否胜利
         isWin: function (x, y) {
-          const map = game.map;
-          const currentRole = game.currentRole;
+            const map = game.map;
+            const currentRole = game.currentRole;
 
-          if (map[x][0] === map[x][1] && map[x][1] === map[x][2]) {
-            return result(map[x][0]);
-          }
-          if (map[0][y] === map[1][y] && map[1][y] === map[2][y]) {
-            return result(map[0][y]);
-          }
-          if (map[0][0] === map[1][1] && map[1][1] === map[2][2]) {
-            return result(map[0][0]);
-          }
-          if (map[0][2] === map[1][1] && map[1][1] === map[2][0]) {
-            return result(map[0][2]);
-          }
-
-          if (game.count === 9) {
-            return END_DRAW;
-          }
-
-          return false;
-
-          function result(value) {
-            if (value === X) {
-              return currentRole === ROLE_CLOSE ? END_WIN : END_LOST;
-            } else if (value === O) {
-              return currentRole === ROLE_CIRCLE ? END_WIN : END_LOST;
-            } else {
-              return false;
+            if (map[x][0] === map[x][1] && map[x][1] === map[x][2]) {
+                return result(map[x][0]);
             }
-          }
+            if (map[0][y] === map[1][y] && map[1][y] === map[2][y]) {
+                return result(map[0][y]);
+            }
+            if (map[0][0] === map[1][1] && map[1][1] === map[2][2]) {
+                return result(map[0][0]);
+            }
+            if (map[0][2] === map[1][1] && map[1][1] === map[2][0]) {
+                return result(map[0][2]);
+            }
+
+            if (game.count === 9) {
+                return END_DRAW;
+            }
+
+            return false;
+
+            function result(value) {
+                if (value === X) {
+                    return currentRole === ROLE_CLOSE ? END_WIN : END_LOST;
+                } else if (value === O) {
+                    return currentRole === ROLE_CIRCLE ? END_WIN : END_LOST;
+                } else {
+                    return false;
+                }
+            }
         },
         // 判断是否有一方再下一子就能胜利
         lineItemTwo: function (x, y, role) {
@@ -500,26 +500,26 @@
             if (map[x][0] === 0 && map[x][1] === role && map[x][2] === role ||
                 map[x][1] === 0 && map[x][0] === role && map[x][2] === role ||
                 map[x][2] === 0 && map[x][0] === role && map[x][1] === role) {
-              return true;
+                return true;
             }
             if (map[0][y] === 0 && map[1][y] === role && map[2][y] === role ||
                 map[1][y] === 0 && map[0][y] === role && map[2][y] === role ||
                 map[2][y] === 0 && map[0][y] === role && map[1][y] === role) {
-              return true;
+                return true;
             }
             if (map[0][0] === 0 && map[1][1] === role && map[2][2] === role ||
                 map[1][1] === 0 && map[0][0] === role && map[2][2] === role ||
                 map[2][2] === 0 && map[0][0] === role && map[1][1] === role) {
-              if (x === 0 && y === 0 || x === 1 && y === 1 || x === 2 && y === 2) {
-                return true;
-              }
+                if (x === 0 && y === 0 || x === 1 && y === 1 || x === 2 && y === 2) {
+                    return true;
+                }
             }
             if (map[0][2] === 0 && map[1][1] === role && map[2][0] === role ||
                 map[1][1] === 0 && map[0][2] === role && map[2][0] === role ||
                 map[2][0] === 0 && map[0][2] === role && map[1][1] === role) {
-              if (x === 0 && y === 2 || x === 1 && y ===1 || x === 2 && y === 0) {
-                return true;
-              }
+                if (x === 0 && y === 2 || x === 1 && y === 1 || x === 2 && y === 0) {
+                    return true;
+                }
             }
 
             return false;
@@ -530,26 +530,26 @@
             if (map[x][0] === role && map[x][1] === 0 && map[x][2] === 0 ||
                 map[x][1] === role && map[x][0] === 0 && map[x][2] === 0 ||
                 map[x][2] === role && map[x][0] === 0 && map[x][1] === 0) {
-              return true;
+                return true;
             }
             if (map[0][y] === role && map[1][y] === 0 && map[2][y] === 0 ||
                 map[1][y] === role && map[0][y] === 0 && map[2][y] === 0 ||
                 map[2][y] === role && map[0][y] === 0 && map[1][y] === 0) {
-              return true;
+                return true;
             }
             if (map[0][0] === role && map[1][1] === 0 && map[2][2] === 0 ||
                 map[1][1] === role && map[0][0] === 0 && map[2][2] === 0 ||
                 map[2][2] === role && map[0][0] === 0 && map[1][1] === 0) {
-              if (x === 0 && y === 0 || x === 1 && y === 1 || x === 2 && y === 2) {
-                return true;
-              }
+                if (x === 0 && y === 0 || x === 1 && y === 1 || x === 2 && y === 2) {
+                    return true;
+                }
             }
             if (map[0][2] === role && map[1][1] === 0 && map[2][0] === 0 ||
                 map[1][1] === role && map[0][2] === 0 && map[2][0] === 0 ||
                 map[2][0] === role && map[0][2] === 0 && map[1][1] === 0) {
-              if (x === 0 && y === 2 || x === 1 && y ===1 || x === 2 && y === 0) {
-                return true;
-              }
+                if (x === 0 && y === 2 || x === 1 && y === 1 || x === 2 && y === 0) {
+                    return true;
+                }
             }
 
             return false;
@@ -558,20 +558,20 @@
         lineItemZero: function (x, y) {
             const map = game.map;
             if (map[x][0] === 0 && map[x][1] === 0 && map[x][2] === 0) {
-              return true;
+                return true;
             }
             if (map[0][y] === 0 && map[1][y] === 0 && map[2][y] === 0) {
-              return true;
+                return true;
             }
             if (map[0][0] === 0 && map[1][1] === 0 && map[2][2] === 0) {
-              if (x === 0 && y === 0 || x === 1 && y === 1 || x === 2 && y === 2) {
-                return true;
-              }
+                if (x === 0 && y === 0 || x === 1 && y === 1 || x === 2 && y === 2) {
+                    return true;
+                }
             }
             if (map[0][2] === 0 && map[1][1] === 0 && map[2][0] === 0) {
-              if (x === 0 && y === 2 || x === 1 && y ===1 || x === 2 && y === 0) {
-                return true;
-              }
+                if (x === 0 && y === 2 || x === 1 && y === 1 || x === 2 && y === 0) {
+                    return true;
+                }
             }
 
             return false;
