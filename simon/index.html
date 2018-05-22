@@ -16,6 +16,7 @@
     <style>
         body {
             margin: 0;
+            user-select: none;
         }
 
         .simon-wrapper {
@@ -86,37 +87,109 @@
 
         .center .title {
             position: relative;
-            margin: 35px 0 0 0;
+            margin: 35px 0 8px 0;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             font-size: 3.2em;
             font-weight: 700;
             color: #222;
         }
-        
+
         .center .title .small {
             position: absolute;
             top: 14px;
             font-size: 12px;
         }
+
+        .count-wrapper, .btn-wrapper {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .count-wrapper {
+            width: 58px;
+        }
+
+        .btn-wrapper {
+            width: 50px;
+        }
+
+        .count-wrapper .count {
+            box-sizing: border-box;
+            width: 100%;
+            height: 40px;
+            border-radius: 10px;
+            border: 4px solid #222;
+            background: #2E080D;
+        }
+
+        .middle .label {
+            margin: 5px 0 0 0;
+            font-family: 'Oswald', Arial, sans;
+            font-size: 0.7em;
+            color: #222;
+        }
+
+        .btn-wrapper {
+            padding-top: 7px;
+        }
+
+        .btn-wrapper .btn {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 100%;
+            border: 4px solid #444;
+            box-shadow: 0 2px 3px #222;
+        }
+
+        .btn-wrapper .btn:active {
+            transform: translateY(2px);
+            box-shadow: none;
+        }
+
+        .start-btn {
+            background: #E83224;
+        }
+
+        .strict-btn {
+            background: #FFFE54;
+        }
     </style>
 </head>
 <body>
-    <div class="simon-wrapper">
-        <div class="simon">
-            <div class="block-wrapper">
-                <div class="block green"></div>
-                <div class="block red"></div>
-                <div class="block yellow"></div>
-                <div class="block blue"></div>
+<div class="simon-wrapper">
+    <div class="simon">
+        <div class="block-wrapper">
+            <div class="block green"></div>
+            <div class="block red"></div>
+            <div class="block yellow"></div>
+            <div class="block blue"></div>
+        </div>
+        <div class="center">
+            <h1 class="title">
+                Simon
+                <span class="small">®</span>
+            </h1>
+            <div class="middle">
+                <div class="count-wrapper">
+                    <div class="count">--</div>
+                    <h3 class="label">COUNT</h3>
+                </div>
+                <div class="btn-wrapper">
+                    <span class="btn start-btn"></span>
+                    <h3 class="label">START</h3>
+                </div>
+                <div class="btn-wrapper">
+                    <span class="btn strict-btn"></span>
+                    <h3 class="label">STRICT</h3>
+                </div>
             </div>
-            <div class="center">
-                <h1 class="title">
-                    Simon
-                    <span class="small">®</span>
-                </h1>
+            <div class="bottom">
+
             </div>
         </div>
     </div>
+</div>
 </body>
 <script src="../resources/jquery-3.2.1.min.js"></script>
 </html>
