@@ -277,7 +277,6 @@
             game.$gameInfo.html("<p>开始游戏或选择玩家</p>");
 
             game.clearAllIcon();
-            game.bindClickListener();
 
             if (!game.$selectClose.hasClass("active")) {
                 game.$selectClose.addClass("active");
@@ -577,6 +576,7 @@
             return false;
         }
     };
+    game.bindClickListener();
     game.init();
 </script>
 </html>

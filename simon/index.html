@@ -261,4 +261,40 @@
 </div>
 </body>
 <script src="../resources/jquery-3.2.1.min.js"></script>
+<script>
+
+    const GREEN_TIME = 1;
+    const RED_TIME = 2;
+    const YELLOW_TIME = 3;
+    const BLUE_TIME = 4;
+
+    const game = {
+
+        $switchWrapper: $(".switch-wrapper"),
+        $switch: $(".switch"),
+
+        init: function() {
+        },
+        close: function() {
+
+        },
+        bindClickListener: function () {
+            // 点击OFF/ON switch
+            game.$switchWrapper.on("click", function () {
+                 if (game.$switch.hasClass("active")) {
+                    game.close();
+                    game.$switch.removeClass("active");
+                 } else {
+                    game.$switch.addClass("active");
+                    game.init();
+                 }
+            });
+
+            // 点击start按钮
+
+            // 点击strict按钮
+        }
+    };
+    game.bindClickListener();
+</script>
 </html>
