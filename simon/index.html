@@ -265,14 +265,17 @@
 <script src="../resources/jquery-3.2.1.min.js"></script>
 <script>
 
-    // 电源未被打开
-    const STATUS_CLOSE = 1;
+    // 电源打开
+    const POWER_OFF = 1;
+    const POWER_ON = 2;
+    // 电源关闭
+
     // 等待游戏开始
-    const STATUS_READY = 2;
+    const STATUS_READY = 1;
     // 展示一遍顺序
-    const STATUS_SHOW = 3;
+    const STATUS_SHOW = 2;
     // 玩家进行游戏
-    const STATUS_GAMING = 4;
+    const STATUS_GAMING = 3;
 
     // 简单模式
     const MODE_SIMPLE = 1;
@@ -286,6 +289,7 @@
 
     const game = {
 
+        power: 0,
         status: 0,
         mode: 0,
 
@@ -296,51 +300,81 @@
         $strictLed: $(".strict-led"),
         $count: $(".count"),
 
-        init: function() {
-            game.status = STATUS_READY;
-            game.mode = MODE_SIMPLE;
+        init: function () {
+            game.power = POWER_OFF;
 
-            game.$count.addClass("active");
-        },
-        close: function() {
-            game.status = STATUS_CLOSE;
-
-            game.$count.text("--");
-            game.$count.removeClass("active");
+            game.bindClickListener();
         },
         bindClickListener: function () {
             // 点击OFF/ON switch
             game.$switchWrapper.on("click", function () {
-                 if (game.$switch.hasClass("active")) {
-                    game.close();
-                    game.$switch.removeClass("active");
-                 } else {
-                    game.$switch.addClass("active");
-                    game.init();
-                 }
+                if (game.power === POWER_OFF) {
+                    game.powerOn();
+                } else {
+                    game.powerOff();
+                }
             });
             // 点击start按钮
             game.$startBtn.on("click", game.clickStart);
             // 点击strict按钮
             game.$strictBtn.on("click", game.clickStrict);
         },
+        powerOn: function () {
+            game.power = POWER_ON;
+            game.status = STATUS_READY;
+            game.mode = MODE_SIMPLE;
+
+            game.$switch.addClass("active");
+            game.$count.addClass("active");
+        },
+        powerOff: function () {
+            game.power = POWER_OFF;
+
+            game.$switch.removeClass("active");
+            game.$count.text("--");
+            game.$count.removeClass("active");
+
+            if (game.$strictLed.hasClass("active")) {
+                game.$strictLed.removeClass("active");
+            }
+        },
         clickStart: function () {
+            if (game.power !== POWER_ON) {
+                return;
+            }
+
             game.displayFlash();
+            // 修改状态
+
+            // 开始展示
+
+            //
         },
         clickStrict: function () {
+            if (game.power !== POWER_ON) {
+                return;
+            }
+
+            if (game.mode === MODE_SIMPLE) {
+                game.mode = MODE_STRICT;
+                game.$strictLed.addClass("active");
+            } else {
+                game.mode = MODE_SIMPLE;
+                game.$strictLed.removeClass("active");
+            }
         },
         // 显示屏闪烁
         displayFlash: function (count = 2, time = 250) {
-            for (let i = 1; i <= count ; i++) {
+            for (let i = 1; i <= count; i++) {
                 setTimeout(function () {
-                    game.$count.css("color", "#2E080D");
+                    game.$count.removeClass("active");
                 }, (2 * i - 1) * time);
                 setTimeout(function () {
-                    game.$count.css("color", "#DC0D29");
+                    game.$count.addClass("active");
                 }, 2 * i * time);
             }
         }
     };
-    game.bindClickListener();
+    game.init();
 </script>
 </html>
