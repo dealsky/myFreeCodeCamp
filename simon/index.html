@@ -292,6 +292,9 @@
         power: 0,
         status: 0,
         mode: 0,
+        count: 0,
+        sequence: [],
+        maxLen: 12,
 
         $switchWrapper: $(".switch-wrapper"),
         $switch: $(".switch"),
@@ -299,6 +302,11 @@
         $strictBtn: $(".strict-btn"),
         $strictLed: $(".strict-led"),
         $count: $(".count"),
+        $greenBlock: $(".block.green"),
+        $redBlock: $(".block.red"),
+        $yellowBlock: $(".block.yellow"),
+        $blueBlock: $(".block.blue"),
+        $blocks: $(".block"),
 
         init: function () {
             game.power = POWER_OFF;
@@ -323,17 +331,20 @@
             game.power = POWER_ON;
             game.status = STATUS_READY;
             game.mode = MODE_SIMPLE;
+            game.count = 1;
 
             game.$switch.addClass("active");
             game.$count.addClass("active");
         },
         powerOff: function () {
-            game.power = POWER_OFF;
+            game.clearAllTimeout();
+            game.clearActiveBlock();
 
+            game.power = POWER_OFF;
             game.$switch.removeClass("active");
             game.$count.text("--");
-            game.$count.removeClass("active");
 
+            game.$count.removeClass("active");
             if (game.$strictLed.hasClass("active")) {
                 game.$strictLed.removeClass("active");
             }
@@ -343,12 +354,15 @@
                 return;
             }
 
+            game.clearAllTimeout();
+            game.clearActiveBlock();
+
             game.displayFlash();
-            // 修改状态
+            game.getSequence();
 
-            // 开始展示
-
-            //
+            game.startShowTimeout = setTimeout(function () {
+                game.displayOrder();
+            }, 2000);
         },
         clickStrict: function () {
             if (game.power !== POWER_ON) {
@@ -366,13 +380,88 @@
         // 显示屏闪烁
         displayFlash: function (count = 2, time = 250) {
             for (let i = 1; i <= count; i++) {
-                setTimeout(function () {
+                game.flashHideTimeout = setTimeout(function () {
                     game.$count.removeClass("active");
                 }, (2 * i - 1) * time);
-                setTimeout(function () {
+                game.flashShowTimeout = setTimeout(function () {
                     game.$count.addClass("active");
                 }, 2 * i * time);
             }
+        },
+        // 清除所有计时器
+        clearAllTimeout: function () {
+            clearTimeout(game.flashHideTimeout);
+            clearTimeout(game.flashShowTimeout);
+            clearTimeout(game.startShowTimeout);
+            clearTimeout(game.blockRemoveActiveTimeout);
+            clearTimeout(game.blockAddActiveTimeout);
+        },
+        // 展示一遍顺序
+        displayOrder: function () {
+            game.status = STATUS_SHOW;
+
+            timeout(0);
+
+            function timeout(index) {
+                if (index === game.count) {
+                    return;
+                }
+
+                const time = game.getTimeByCount();
+
+                const currentColor = game.getColorDom(game.sequence[index]);
+                currentColor.addClass("active");
+                game.blockRemoveActiveTimeout = setTimeout(function () {
+                    currentColor.removeClass("active");
+                    game.blockAddActiveTimeout = setTimeout(function () {
+                        timeout(index + 1);
+                    }, 300);
+                }, time);
+            }
+        },
+        // 获取序列
+        getSequence: function () {
+            game.sequence = [];
+            for (let i = 0; i < game.maxLen; i++) {
+                let num = Math.floor(Math.random() * 4 + 1);
+                game.sequence.push(num);
+            }
+        },
+        getColorDom: function (color) {
+            if (color === GREEN_TIME) {
+                return game.$greenBlock;
+            } else if (color === RED_TIME) {
+                return game.$redBlock;
+            } else if (color === YELLOW_TIME) {
+                return game.$yellowBlock;
+            } else {
+                return game.$blueBlock;
+            }
+        },
+        getTimeByCount: function () {
+            const count = game.count;
+
+            if (count > 0 && count <= 3) {
+                return 1000;
+            } else if (count <= 6) {
+                return 800;
+            } else if (count <= 9) {
+                return 750;
+            } else if (count <= 12) {
+                return 700;
+            } else if (count <= 15) {
+                return 600;
+            } else {
+                return 500;
+            }
+        },
+        // 清除所有亮块
+        clearActiveBlock: function () {
+            game.$blocks.each(function () {
+                if ($(this).hasClass("active")) {
+                    $(this).removeClass("active");
+                }
+            });
         }
     };
     game.init();
