@@ -155,6 +155,7 @@
             border-radius: 100%;
             border: 4px solid #444;
             box-shadow: 0 2px 3px #222;
+            cursor: pointer;
         }
 
         .btn-wrapper .btn:active {
@@ -196,6 +197,7 @@
             height: 20px;
             line-height: 20px;
             background: #222;
+            cursor: pointer;
         }
 
         .switch-wrapper .switch {
@@ -263,6 +265,20 @@
 <script src="../resources/jquery-3.2.1.min.js"></script>
 <script>
 
+    // 电源未被打开
+    const STATUS_CLOSE = 1;
+    // 等待游戏开始
+    const STATUS_READY = 2;
+    // 展示一遍顺序
+    const STATUS_SHOW = 3;
+    // 玩家进行游戏
+    const STATUS_GAMING = 4;
+
+    // 简单模式
+    const MODE_SIMPLE = 1;
+    // 严格模式
+    const MODE_STRICT = 2;
+
     const GREEN_TIME = 1;
     const RED_TIME = 2;
     const YELLOW_TIME = 3;
@@ -270,13 +286,27 @@
 
     const game = {
 
+        status: 0,
+        mode: 0,
+
         $switchWrapper: $(".switch-wrapper"),
         $switch: $(".switch"),
+        $startBtn: $(".start-btn"),
+        $strictBtn: $(".strict-btn"),
+        $strictLed: $(".strict-led"),
+        $count: $(".count"),
 
         init: function() {
+            game.status = STATUS_READY;
+            game.mode = MODE_SIMPLE;
+
+            game.$count.addClass("active");
         },
         close: function() {
+            game.status = STATUS_CLOSE;
 
+            game.$count.text("--");
+            game.$count.removeClass("active");
         },
         bindClickListener: function () {
             // 点击OFF/ON switch
@@ -289,10 +319,26 @@
                     game.init();
                  }
             });
-
             // 点击start按钮
-
+            game.$startBtn.on("click", game.clickStart);
             // 点击strict按钮
+            game.$strictBtn.on("click", game.clickStrict);
+        },
+        clickStart: function () {
+            game.displayFlash();
+        },
+        clickStrict: function () {
+        },
+        // 显示屏闪烁
+        displayFlash: function (count = 2, time = 250) {
+            for (let i = 1; i <= count ; i++) {
+                setTimeout(function () {
+                    game.$count.css("color", "#2E080D");
+                }, (2 * i - 1) * time);
+                setTimeout(function () {
+                    game.$count.css("color", "#DC0D29");
+                }, 2 * i * time);
+            }
         }
     };
     game.bindClickListener();
