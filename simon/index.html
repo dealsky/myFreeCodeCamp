@@ -295,6 +295,7 @@
         count: 0,
         sequence: [],
         maxLen: 12,
+        currentIndex: 0,
 
         $switchWrapper: $(".switch-wrapper"),
         $switch: $(".switch"),
@@ -326,12 +327,15 @@
             game.$startBtn.on("click", game.clickStart);
             // 点击strict按钮
             game.$strictBtn.on("click", game.clickStrict);
+            // 点击区块不放开鼠标
+            game.$blocks.on("mousedown", game.downBlock);
+            // 点击区块放开鼠标
+            game.$blocks.on("mouseup", game.upBlock);
         },
         powerOn: function () {
             game.power = POWER_ON;
             game.status = STATUS_READY;
             game.mode = MODE_SIMPLE;
-            game.count = 1;
 
             game.$switch.addClass("active");
             game.$count.addClass("active");
@@ -353,6 +357,9 @@
             if (game.power !== POWER_ON) {
                 return;
             }
+
+            game.currentIndex = 0;
+            game.count = 1;
 
             game.clearAllTimeout();
             game.clearActiveBlock();
@@ -401,14 +408,13 @@
             game.status = STATUS_SHOW;
 
             timeout(0);
-
             function timeout(index) {
                 if (index === game.count) {
+                    game.status = STATUS_GAMING;
                     return;
                 }
 
                 const time = game.getTimeByCount();
-
                 const currentColor = game.getColorDom(game.sequence[index]);
                 currentColor.addClass("active");
                 game.blockRemoveActiveTimeout = setTimeout(function () {
@@ -462,6 +468,22 @@
                     $(this).removeClass("active");
                 }
             });
+        },
+        downBlock: function() {
+            if (game.status !== STATUS_GAMING) {
+                return;
+            }
+
+            $(this).addClass("active");
+        },
+        upBlock: function() {
+            if (game.status !== STATUS_GAMING) {
+                return;
+            }
+
+            $(this).removeClass("active");
+
+
         }
     };
     game.init();
