@@ -408,6 +408,7 @@
             game.status = STATUS_SHOW;
 
             timeout(0);
+
             function timeout(index) {
                 if (index === game.count) {
                     game.status = STATUS_GAMING;
@@ -469,21 +470,48 @@
                 }
             });
         },
-        downBlock: function() {
-            if (game.status !== STATUS_GAMING) {
+        downBlock: function () {
+            if (game.power === POWER_OFF || game.status !== STATUS_GAMING) {
                 return;
             }
 
             $(this).addClass("active");
         },
-        upBlock: function() {
-            if (game.status !== STATUS_GAMING) {
+        upBlock: function () {
+            if (game.power === POWER_OFF || game.status !== STATUS_GAMING) {
                 return;
             }
 
             $(this).removeClass("active");
 
+            const currentColor = game.sequence[game.currentIndex];
 
+            if ($(this).hasClass("green")) {
+                game.nextStepClickBlock(currentColor, GREEN_TIME);
+            } else if ($(this).hasClass("red")) {
+                game.nextStepClickBlock(currentColor, RED_TIME);
+            } else if ($(this).hasClass("yellow")) {
+                game.nextStepClickBlock(currentColor, YELLOW_TIME);
+            } else if ($(this).hasClass("blue")) {
+                game.nextStepClickBlock(currentColor, BLUE_TIME);
+            }
+        },
+        // 玩家点击色块之后的判断逻辑
+        nextStepClickBlock: function (currentColor, color) {
+            setTimeout(function () {
+                if (currentColor === color) {
+                    if (game.currentIndex === game.count - 1) {
+                        game.count++;
+                        game.currentIndex = 0;
+                        game.displayOrder();
+                    } else {
+                        game.currentIndex++;
+                    }
+                } else {
+                    game.currentIndex = 0;
+                    game.displayOrder();
+                }
+            }, 500);
         }
     };
     game.init();
