@@ -261,6 +261,11 @@
         </div>
     </div>
 </div>
+<audio id="greenSound" src="../resources/sound/simonSound1.mp3"></audio>
+<audio id="redSound" src="../resources/sound/simonSound2.mp3"></audio>
+<audio id="yellowSound" src="../resources/sound/simonSound3.mp3"></audio>
+<audio id="blueSound" src="../resources/sound/simonSound4.mp3"></audio>
+<audio id="successSound" src="../resources/sound/success.mp3"></audio>
 </body>
 <script src="../resources/jquery-3.2.1.min.js"></script>
 <script>
@@ -312,6 +317,11 @@
         $yellowBlock: $(".block.yellow"),
         $blueBlock: $(".block.blue"),
         $blocks: $(".block"),
+        $greenSound: $("#greenSound")[0],
+        $redSound: $("#redSound")[0],
+        $yellowSound: $("#yellowSound")[0],
+        $blueSound: $("#blueSound")[0],
+        $successSound: $("#successSound")[0],
 
         init: function () {
             game.power = POWER_OFF;
@@ -347,6 +357,7 @@
         powerOff: function () {
             game.clearAllTimeout();
             game.clearActiveBlock();
+            game.clearAllAudio();
 
             game.power = POWER_OFF;
             game.$switch.removeClass("active");
@@ -368,6 +379,7 @@
 
             game.clearAllTimeout();
             game.clearActiveBlock();
+            game.clearAllAudio();
 
             game.displayFlash();
             game.getSequence();
@@ -428,6 +440,7 @@
                 const time = game.getTimeByCount();
                 const currentColor = game.getColorDom(game.sequence[index]);
                 currentColor.addClass("active");
+                game.playBGM(game.sequence[index]);
                 game.blockRemoveActiveTimeout = setTimeout(function () {
                     currentColor.removeClass("active");
                     game.blockAddActiveTimeout = setTimeout(function () {
@@ -512,8 +525,13 @@
             setTimeout(function () {
                 // 点击的色块正确
                 if (currentColor === color) {
+                    game.playBGM(currentColor);
                     // 最后一次点击
                     if (game.currentIndex === game.count - 1) {
+                        if (game.count === game.sequence.length) {
+                            game.success();
+                            return;
+                        }
                         game.count++;
                         game.currentIndex = 0;
                         game.startShowTimeout = setTimeout(function () {
@@ -524,6 +542,14 @@
                         game.status = STATUS_GAMING;
                     }
                 } else {
+                    game.playBGM(1);
+                    game.playBGM(2);
+                    game.playBGM(3);
+                    game.playBGM(4);
+                    if (game.mode === MODE_STRICT) {
+                        game.getSequence();
+                        game.count = 1;
+                    }
                     game.currentIndex = 0;
                     game.$count.text("!!");
                     game.displayFlash();
@@ -534,9 +560,47 @@
                 }
             });
         },
+        // 播放音频
+        playBGM: function(color) {
+            if (color === GREEN_TIME) {
+                game.$greenSound.play();
+            } else if (color === RED_TIME) {
+                game.$redSound.play();
+            } else if (color === YELLOW_TIME) {
+                game.$yellowSound.play();
+            } else if (color === BLUE_TIME) {
+                game.$blueSound.play();
+            } else {
+                game.$successSound.play();
+            }
+        },
         // 获得胜利之后
         success: function () {
-
+            game.status = STATUS_SUCCESS;
+            game.displayFlash();
+            game.playBGM(0);
+            game.$blocks.each(function () {
+                if (!$(this).hasClass("active")) {
+                    $(this).addClass("active");
+                }
+            });
+        },
+        clearAllAudio: function () {
+            if (game.$greenSound.played) {
+                game.$greenSound.load();
+            }
+            if (game.$redSound.played) {
+                game.$redSound.load();
+            }
+            if (game.$yellowSound.played) {
+                game.$yellowSound.load();
+            }
+            if (game.$blueSound.played) {
+                game.$blueSound.load();
+            }
+            if (game.$successSound.played) {
+                game.$successSound.load();
+            }
         }
     };
     game.init();
