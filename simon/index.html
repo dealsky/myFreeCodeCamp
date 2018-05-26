@@ -276,6 +276,10 @@
     const STATUS_SHOW = 2;
     // 玩家进行游戏
     const STATUS_GAMING = 3;
+    // 点击色块之后的决策阶段;
+    const STATUS_AFTER_CLICK_BLOCK = 4;
+    // 游戏结束
+    const STATUS_SUCCESS = 5;
 
     // 简单模式
     const MODE_SIMPLE = 1;
@@ -360,6 +364,7 @@
 
             game.currentIndex = 0;
             game.count = 1;
+            game.$count.text("--");
 
             game.clearAllTimeout();
             game.clearActiveBlock();
@@ -406,6 +411,11 @@
         // 展示一遍顺序
         displayOrder: function () {
             game.status = STATUS_SHOW;
+            if (game.count < 10) {
+                game.$count.text("0" + game.count);
+            } else {
+                game.$count.text(game.count);
+            }
 
             timeout(0);
 
@@ -486,6 +496,7 @@
 
             const currentColor = game.sequence[game.currentIndex];
 
+            game.status = STATUS_AFTER_CLICK_BLOCK;
             if ($(this).hasClass("green")) {
                 game.nextStepClickBlock(currentColor, GREEN_TIME);
             } else if ($(this).hasClass("red")) {
@@ -499,19 +510,33 @@
         // 玩家点击色块之后的判断逻辑
         nextStepClickBlock: function (currentColor, color) {
             setTimeout(function () {
+                // 点击的色块正确
                 if (currentColor === color) {
+                    // 最后一次点击
                     if (game.currentIndex === game.count - 1) {
                         game.count++;
                         game.currentIndex = 0;
-                        game.displayOrder();
+                        game.startShowTimeout = setTimeout(function () {
+                            game.displayOrder();
+                        }, 500);
                     } else {
                         game.currentIndex++;
+                        game.status = STATUS_GAMING;
                     }
                 } else {
                     game.currentIndex = 0;
-                    game.displayOrder();
+                    game.$count.text("!!");
+                    game.displayFlash();
+
+                    game.startShowTimeout = setTimeout(function () {
+                        game.displayOrder();
+                    }, 2000);
                 }
-            }, 500);
+            });
+        },
+        // 获得胜利之后
+        success: function () {
+
         }
     };
     game.init();
